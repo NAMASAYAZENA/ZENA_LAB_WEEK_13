@@ -1,0 +1,64 @@
+Muhammad Ganesar Zena
+00000102230
+
+1. Why is MVVM important? Which files represent Model, View, and ViewModel?
+
+MVVM (Model–View–ViewModel) penting karena memisahkan logika aplikasi dari UI,
+sehingga kode lebih bersih, lebih mudah di-maintain, dan lebih mudah diuji (testable).
+View tidak mengetahui detail logika data, dan ViewModel tidak mengetahui detail UI.
+
+Pembagian file dalam project:
+• Model  : Movie.kt, MovieDao.kt, MovieDatabase.kt, API Response, MovieService
+• View   : Activity, Fragment, XML layout (activity_main.xml, item_movie.xml)
+• ViewModel : MovieViewModel.kt
+
+Dengan struktur ini, perubahan UI tidak merusak logika data, dan perubahan model tidak merusak tampilan.
+
+
+2. In Part 1, you implemented Data Binding, why is this more efficient than normal method?
+
+Data Binding lebih efisien karena:
+• Mengurangi penggunaan findViewById()
+• Binding langsung antara XML dan data (real-time)
+• Mengurangi boilerplate code
+• Menghindari NullPointerException karena view tertangani otomatis
+• Performa lebih baik pada aplikasi dengan banyak komponen UI
+
+Data Binding membuat UI lebih reaktif dan terstruktur rapi.
+
+
+3. In Part 2, you implemented the Singleton Pattern, why is this important?
+
+Singleton Pattern penting karena:
+• Menjamin hanya ada 1 instance database (Room) untuk seluruh aplikasi
+• Menghemat memory dan resource
+• Menghindari error karena ada banyak instance DB yang berjalan bersamaan
+• Menjaga konsistensi data
+
+MovieDatabase harus Singleton, kalau tidak aplikasi dapat crash atau lambat.
+
+
+4. In Part 2 & 3, you implemented the Repository Pattern, why is this important?
+
+Repository Pattern penting karena:
+• Memisahkan sumber data (API, Database, Cache) dari ViewModel
+• ViewModel tidak perlu tahu data berasal dari mana
+• Memudahkan testing
+• Menjadikan kode lebih rapi dan scalable
+• Bisa melakukan strategi load: local first → remote → save → update UI
+
+Repository berperan sebagai "jembatan" antara data dan ViewModel.
+
+
+5. In part 3, you implemented the Worker Manager,
+is there another way to refresh your database with the latest data other than using Worker?
+
+Ya, ada beberapa alternatif:
+• Manual refresh (misalnya tombol Refresh)
+• SwipeRefreshLayout untuk refresh menggunakan gesture
+• LiveData reactive updates (jika data otomatis berubah di server)
+• Firebase Realtime Update / WebSocket (push data secara real-time)
+• Periodic refresh menggunakan Handler atau Coroutine Timer (kurang efisien)
+• AlarmManager (kurang direkomendasikan untuk background tasks modern)
+
+Namun WorkManager tetap paling aman untuk tugas background yang pasti dijalankan, terutama saat app ditutup atau device restart.
